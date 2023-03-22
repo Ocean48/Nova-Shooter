@@ -19,12 +19,16 @@ clock = pygame.time.Clock()
 
 
 '''   Classes   '''
-# class Player(pygame.sprite.Sprite):
-#     def __init__(self, x, y):
-#         super().__init__()
-#         self.image = p
+class Player(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__()
+        self.image = pygame.image.load("images/ship.png")  # image size 120 x 80
+        self.rect = self.image.get_rect(center=(x,y))
         
 
+ship = Player(0+60,screen_height-40)
+player_group = pygame.sprite.Group()
+player_group.add(ship)
 
 '''    Main loop    '''
 gameStart = True
@@ -39,7 +43,7 @@ while gameStart == True:
  
     '''   Draw   '''
     screen.fill(white)
-    pygame.draw.rect(screen, black, (100,100, 120, 80))
+    player_group.draw(screen)
     
     pygame.display.flip()     
     clock.tick(100)
