@@ -25,6 +25,19 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load("images/ship.png")  # image size 120 x 80
         self.rect = self.image.get_rect(center=(x,y))
         
+    def update(self, keys):
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= 3
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += 3
+        
+        if (self.rect.x <= -60):
+            self.rect.x = screen_width-61   
+        if (self.rect.x >= screen_width-60):
+            self.rect.x = -60   
+        
+        
+        
 
 ship = Player(0+60,screen_height-40)
 player_group = pygame.sprite.Group()
@@ -40,11 +53,13 @@ while gameStart == True:
             gameStart = False
             pygame.quit()
             quit()
+    keys = pygame.key.get_pressed()
  
     '''   Draw   '''
     screen.fill(white)
     player_group.draw(screen)
+    player_group.update(keys)
     
     pygame.display.flip()     
-    clock.tick(100)
+    clock.tick(150)
 pygame.quit()
